@@ -1,7 +1,7 @@
 # simple-image-server
 nginx 에 이미지 띄우고 docker 이미지로 올려보는 레포
 
-- __URL__ : `localhost:port/images/${zoom_level}/{x}/{y}.png` 로 접근한다. 
+- __URL__ : `localhost:port/images/${z}/${x}/${y}.png` 로 접근한다. 
 - (ex: http://localhost:3000/images/12/3495/1601.png) <br  />
 
 
