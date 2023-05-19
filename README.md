@@ -11,7 +11,7 @@ nginx 에 이미지 띄우고 docker 이미지로 올려보는 레포
 
 ## Guide
 
-- [macOS 에서 nginx 설치](#nginx-설치-macos)
+- [nginx 설치 및 실행](#nginx-설치-및-실행-macos)
 - [리눅스 폴더 전체 복사/이동/삭제 명령어](#리눅스-명령어)
 - [리눅스 파일 수정 (vi/vim)](#vim-명령어)
 - [리눅스 파일 권한 설정](#파일-권한-설정)
@@ -26,13 +26,16 @@ nginx 에 이미지 띄우고 docker 이미지로 올려보는 레포
 <br />
 
 
-## Nginx 설치 (macOS)
+## Nginx 설치 및 실행 (macOS)
 
 - 설치 : `brew install nginx`
 
 - 실행 : `brew services restart nginx`
   
 - 종료 : `nginx -s stop`
+
+- 확인 : `ps -ef | grep nginx`
+
 
 
 <br />
