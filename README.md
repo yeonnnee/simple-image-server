@@ -11,11 +11,48 @@ nginx 에 이미지 띄우고 docker 이미지로 올려보는 레포
 
 ## Guide
 
-- macOS 에서 nginx 설치
-- 리눅스 폴더 전체 복사/이동/삭제 명령어
-- 리눅스 파일 수정 (vi/vim)
-- 리눅스 파일 권한 설정 
-- tar zp 압축
-- nginx.conf 파일 수정
-- Dockerfile 작성
-- Docker 명령어
+- [macOS 에서 nginx 설치](#nginx-설치-macos)
+- [리눅스 폴더 전체 복사/이동/삭제 명령어](#리눅스-명령어)
+- [리눅스 파일 수정 (vi/vim)](#vim-명령어)
+- [리눅스 파일 권한 설정](#파일-권한-설정)
+- [tar zp 압축](#tar-zp)
+- [nginx.conf 파일 설정](#nginx-설정)
+- [Dockerfile 작성](#dockerfile-작성)
+- [Docker 명령어](#docker-명령어)
+
+
+<br />
+<br />
+<br />
+
+
+## Nginx 설치 (macOS)
+
+- 설치 : `brew install nginx`
+
+- 실행 : `brew services restart nginx`
+  
+- 종료 : `nginx -s stop`
+
+
+<br />
+<br />
+<br />
+
+
+## 리눅스 명령어
+
+
+## vim 명령어
+
+## 파일 권한 설정
+
+## tar zp
+
+## nginx 설정
+
+
+## Dockerfile 작성
+
+
+## docker 명령어
