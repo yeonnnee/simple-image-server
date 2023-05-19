@@ -19,6 +19,10 @@ nginx 에 이미지 띄우고 docker 이미지로 올려보는 레포
 - [nginx.conf 파일 설정](#nginx-설정)
 - [Dockerfile 작성](#dockerfile-작성)
 - [Docker 명령어](#docker-명령어)
+- [docker-compose](#docker-compose)
+- [도커 이미지 도커허브에 올리기](#도커이미지-도커허브에-올리기)
+- [AWS S3에 이미지 배포하기](#aws-s3-배포하기)
+- [github actions 사용하기](#github-actions)
 
 
 <br />
@@ -59,3 +63,14 @@ nginx 에 이미지 띄우고 docker 이미지로 올려보는 레포
 
 
 ## docker 명령어
+
+
+## docker-compose
+
+
+## 도커이미지 도커허브에 올리기
+
+## AWS s3 배포하기
+
+## github actions
+
