@@ -1,8 +1,8 @@
 # simple-image-server
 이미지 서버 구축해보기
 
-1. 로컬 : nginx에 이미지 띄우고 docker 이미지로 만들어 Docker Hub에 올리기
-2. 클라우드 : AWS S3 에 이미지 배포하여 서빙하기
+- [X] 로컬 - nginx에 이미지 띄우고 docker 이미지로 만들어 Docker Hub에 올리기
+- [X] 클라우드 - AWS S3 에 이미지 배포하여 서빙하기
 
 <br />
 <br />
