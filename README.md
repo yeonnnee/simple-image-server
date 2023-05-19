@@ -15,6 +15,7 @@ nginx 에 이미지 띄우고 docker 이미지로 올려보는 레포
 - 리눅스 폴더 전체 복사/이동/삭제 명령어
 - 리눅스 파일 수정 (vi/vim)
 - 리눅스 파일 권한 설정 
+- tar zp 압축
 - nginx.conf 파일 수정
 - Dockerfile 작성
 - Docker 명령어
