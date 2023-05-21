@@ -333,6 +333,18 @@ jobs:
 [참고링크](https://velog.io/@lllen/AWS-S3%EC%99%80-Cloudfront%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%9C-%ED%94%84%EB%A1%A0%ED%8A%B8%EC%97%94%EB%93%9C-%EB%B0%B0%ED%8F%AC)
 
 
+```
+{
+  "name": "simple-image-server",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {
+    "deploy": "aws s3 sync ./build s3://`서비스명` --profile=`사용자 이름`"
+  }
+}
+
+```
+
 ## github actions
 
 [참고링크](https://zzsza.github.io/development/2020/06/06/github-action/)
