@@ -112,17 +112,127 @@ __URL__ : `${HOST}/images/${z}/${x}/${y}.png` 로 접근한다. <br/>
           - q! 저장하지 않고 나가기
 
 ## 파일 권한 설정
+ls -al
+sudo chmod -R 755 ./
 
 ## tar zp
 
+-cf  images.tar.gz ./images
+
 ## nginx 설정
+
+1. `brew info nginx`로 nginx path를 조회한다.
+2. 해당 위치로 이동하면 nginx.conf 파일이 있는데, 이 파일로 설정을 수정해 주어야 한다.
+3. `sudo vi /opt/homebrew/etc/nginx/nginx.conf` 실행
+4. server 부분에서 라우트설정 및 포트를 설정 줄 수 있다. <br />     
+          
+          server {
+                    listen       80; // 포트설정 : 기본이 80 - localhost:80 접속시 ngnix 화면을 볼 수 있다.
+                    server_name  localhost;
+
+                    location /images {
+                              alias /etc/nginx/images/sample/;
+                    }
+          }
+    
+<br />
+
+5. 경로설정 root vs alias <br />
+&ensp; - `root` : location 으로 넘어온 부분을 root로 설정한 경로에 __추가__ 한다.  <br />
+&ensp; -`alias`: location 에 매칭된 부분을 alias 로 설정한 경로로 __바꾼다__.
+
+<br />
+
+예) `localhost:80/images` 접속
+
+:honeybee: __root__
+```
+location /images {
+      root /etc/nginx/images/sample/;
+}
+```
+:arrow_right: __/etc/nginx/images/sample/images__ 로 자원을 찾게된다. <br/>
+
+<br />
+
+:honeybee: __alias__
+```
+location /images {
+      alias /etc/nginx/images/sample/;
+}
+```
+:arrow_right:  __/etc/nginx/images/sample__ 로 자원을 찾게된다.
+
+<br />
+
+6. cors 설정
+```
+location /images {
+  alias /etc/nginx/images/DJ/;
+  add_header 'Access-Control-Allow-Origin' '*' always;
+}
+```
+
+<br />
+<br />
+<br />
 
 
 ## Dockerfile 작성
 
+```
+FROM nginx
+
+
+#기본 디렉토리 설정
+WORKDIR /etc/nginx 
+
+# Copy the images 폴더
+COPY images/  ./images/
+
+# Copy the Nginx config
+COPY nginx.conf ./
+
+# 포트설정
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
+```
+
+- tar zp 압축한 경우
+
+```
+ COPY images.tar.gz ./
+ RUN tar -xf ./images.tar.gz \ 
+ && rm -rf ./images.tar.gz
+#  ADD images.tar.gz ./ 하면 자동으로 압축 해제됨
+```
+
+<br />
+<br />
+<br />
+
 
 ## docker 명령어
 
+`docker build -t simple-image-server .`
+
+`docker run --rm simple-image-serve `
+
+`docker run --rm -it simple-image-serve sh`
+
+`docker run --rm -p 3000:8888 simple-image-serve`
+
+`docker run --rm -d -p 3000:8888 simple-image-serve`
+
+`run --rm -d -p 3000:8888 --name nginx simple-image-serve`
+
+`docker ps`
+
+`docker logs`
+
+`docker exec -it `docker ps -q` `
+`docker stop simple-image-serve`
 
 ## docker-compose
 
