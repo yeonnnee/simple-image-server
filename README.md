@@ -98,7 +98,9 @@ __URL__ : `${HOST}/images/${z}/${x}/${y}.png` 로 접근한다. <br/>
 - `cat -b [파일이름]` : 각 행에 번호 붙여서 출력하기
 - `cat [파일이름]` : 빈 행에 번호 붙여서 출력하기
 
-## 읽기 수정 vim 
+<br/>
+
+### 읽기 수정 vim 
 
 - `vi [파일이름]`: 파일 읽기
 - `i`: 편집 실행
@@ -110,14 +112,22 @@ __URL__ : `${HOST}/images/${z}/${x}/${y}.png` 로 접근한다. <br/>
           - q 나가기
           - wq 저장하고 종료하기
           - q! 저장하지 않고 나가기
+<br/>
+<br/>
 
-## 파일 권한 설정
-ls -al
-sudo chmod -R 755 ./
+### 파일 권한 설정
+`ls -al`
+`sudo chmod -R 755 ./`
 
-## tar zp
+<br/>
 
--cf  images.tar.gz ./images
+### tar zp
+
+`-cf  images.tar.gz ./images`
+
+<br/>
+<br/>
+<br/>
 
 ## nginx 설정
 
