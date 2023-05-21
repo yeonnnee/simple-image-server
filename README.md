@@ -125,15 +125,16 @@ sudo chmod -R 755 ./
 2. 해당 위치로 이동하면 nginx.conf 파일이 있는데, 이 파일로 설정을 수정해 주어야 한다.
 3. `sudo vi /opt/homebrew/etc/nginx/nginx.conf` 실행
 4. server 부분에서 라우트설정 및 포트를 설정 줄 수 있다. <br />     
-          
+```   
           server {
-                    listen       80; // 포트설정 : 기본이 80 - localhost:80 접속시 ngnix 화면을 볼 수 있다.
-                    server_name  localhost;
+              listen       80; // 포트설정 : 기본이 80 - localhost:80 접속시 ngnix 화면을 볼 수 있다.
+              server_name  localhost;
 
-                    location /images {
-                              alias /etc/nginx/images/sample/;
-                    }
+              location /images {
+                  alias /etc/nginx/images/sample/;
+               }
           }
+```
     
 <br />
 
@@ -215,31 +216,114 @@ CMD ["nginx", "-g", "daemon off;"]
 
 ## docker 명령어
 
-`docker build -t simple-image-server .`
+### 이미지 검색
 
-`docker run --rm simple-image-serve `
+- `docker images` 
 
-`docker run --rm -it simple-image-serve sh`
+### 도커 이미지 빌드
 
-`docker run --rm -p 3000:8888 simple-image-serve`
+- `docker build -t [컨테이너명] .`
 
-`docker run --rm -d -p 3000:8888 simple-image-serve`
 
-`run --rm -d -p 3000:8888 --name nginx simple-image-serve`
+### 도커 이미지 실행
+- `docker run --rm -it[컨테이너명] sh`
+- `docker run --rm -d -p 3000:8888 [컨테이너명]` 
+- `run --rm -d -p 3000:8888 --name [이름지정] [컨테이너명]` : 컨테이너명 이름을 지정하여 실행
 
-`docker ps`
+|옵션|설명|
+|--------|--------------|
+|--rm |  컨테이너가 종료될 때 컨테이너와 관련된 리소스(파일 시스템, 볼륨)제거 (주로 일회성 실행에 쓰임)|
+|-d|  데몬 형태로 실행|
+| -p [로컬포트]:[컨테이너포트]|포트 포워딩|
+|-it|   컨테이너를 종료하지 않은채로, 터미널의 입력을 계속해서 컨테이너로 전달하기 위해서 사용|
+| --name| 컨테이너에 이름을 부여, 삭제, 종료시 편리|
+         
+         
+ 
 
-`docker logs`
+### 컨테이너 목록 조회
 
-`docker exec -it `docker ps -q` `
-`docker stop simple-image-serve`
+- `docker ps` : 실행중인 컨테이너 목록 출력
+- `docker ps -a` : 실행했던 컨테이너 목록의 이력을 출력
+- `docker ps -a -q` : 도커의 모든 컨테이너 ID 확인
+- `docker logs` : 도커 로그 목록 조회
+
+### 컨테이너 접속 / 종료 / 빠져나오기
+- `docker exec -it ` :  도커 컨테이너 접속
+- `exec`: 컨테이너 종료하면서 빠져나오기 
+- `docker stop [컨테이너이름]` : 컨테이너 종료
+
+<br />
+<br />
+<br />
 
 ## docker-compose
 
+여러 컨테이너를 가지는 애플리케이션을 통합적으로 Docker 이미지를 만들고, 만들어진 각각의 컨테이너를 시작 및 중지하는 등의 작업을 더 쉽게 수행할 수 있도록 도와주는 도구 <br />
+:arrow_right: 복수 컨테이너를 정의하기 위한 툴
+<br />
+```
+version: [버전 명시]
+
+services:
+  [서비스명 지정]:
+    container_name: [컨테이너명]
+    image: [이미지명]
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    ports:
+      - 80:80
+```
+<br />
+<br />
+<br />
+
 
 ## 도커이미지 도커허브에 올리기
+github Actions 를 사용하여 CI/CD 작성해보자
+<br />
+
+```
+name: deploy simple image server
+
+on:
+  push:
+    branches:
+      - "main" // main 브랜치에 머지될때마다 아래 jobs 실행
+
+jobs:
+ CD_DockerHub:
+    name: [이름작성]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_HUB_USER_NAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USER_NAME }}/simple-image-server:latest
+```
 
 ## AWS s3 배포하기
 
+[참고링크](https://velog.io/@lllen/AWS-S3%EC%99%80-Cloudfront%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%9C-%ED%94%84%EB%A1%A0%ED%8A%B8%EC%97%94%EB%93%9C-%EB%B0%B0%ED%8F%AC)
+
+
 ## github actions
+
+[참고링크](https://zzsza.github.io/development/2020/06/06/github-action/)
 
