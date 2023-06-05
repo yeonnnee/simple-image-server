@@ -17,6 +17,32 @@ __URL__ : `${HOST}/images/${z}/${x}/${y}.png` 로 접근한다. <br/>
 <br />
 <br />
 
+## Get Started
+
+### Run Nginx
+
+```
+brew services start nginx
+```
+
+- visit : http://localhost:3000/images/12/3495/1601.png
+
+<br />
+
+### Run Docker Image
+
+```
+docker build -t simple-image-server .
+docker run --rm -p 3030:80 --name nginx simple-image-server
+```
+
+- visit : http://localhost:3030/images/12/3495/1601.png
+
+
+<br />
+<br />
+<br />
+
 ## Guide
 
  
@@ -40,10 +66,11 @@ __URL__ : `${HOST}/images/${z}/${x}/${y}.png` 로 접근한다. <br/>
     - [Docker 명령어](#docker-명령어)
     - [docker-compose](#docker-compose)
     - [도커 이미지 도커허브에 올리기](#도커이미지-도커허브에-올리기)
+    - [Image's platform](#Image's-platform)
 
 4. Deploy / Pipeline
     -  [AWS S3에 이미지 배포하기](#aws-s3-배포하기)
-    -  [CI/CD 배포 자동화 (Feat. Github Actions)](#github-actions)
+    -  [Github action을 이용한 자동배포](#github-actions)
 
 
 <br />
@@ -191,6 +218,8 @@ location /images {
 
 ## Dockerfile 작성
 
+Dockerfile 은 도커 _이미지_를 생성하는 파일이다.
+
 ```
 FROM nginx
 
@@ -269,6 +298,8 @@ CMD ["nginx", "-g", "daemon off;"]
 
 ## docker-compose
 
+docker-compose는 도커 _컨테이너_를 생성하는 파일이다.
+
 여러 컨테이너를 가지는 애플리케이션을 통합적으로 Docker 이미지를 만들고, 만들어진 각각의 컨테이너를 시작 및 중지하는 등의 작업을 더 쉽게 수행할 수 있도록 도와주는 도구 <br />
 :arrow_right: 복수 컨테이너를 정의하기 위한 툴
 <br />
@@ -328,6 +359,20 @@ jobs:
           tags: ${{ secrets.DOCKER_HUB_USER_NAME }}/simple-image-server:latest
 ```
 
+<br />
+<br />
+
+## Image's platform
+
+[이슈] Docker on Mac M1 gives: "The requested image's platform (linux/amd64) does not match the detected host platform"
+
+[해결] 빌드할때 --platform linux/arm64 옵션을 설정해준다.
+
+
+<br />
+<br />
+<br />
+
 ## AWS s3 배포하기
 
 [참고링크](https://velog.io/@lllen/AWS-S3%EC%99%80-Cloudfront%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%9C-%ED%94%84%EB%A1%A0%ED%8A%B8%EC%97%94%EB%93%9C-%EB%B0%B0%ED%8F%AC)
@@ -345,7 +390,7 @@ jobs:
 
 ```
 
-## github actions
+## Github action을 이용한 자동배포
 
 [참고링크](https://zzsza.github.io/development/2020/06/06/github-action/)
 
